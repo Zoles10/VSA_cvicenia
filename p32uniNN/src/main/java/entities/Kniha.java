@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 
 /**
  *
@@ -25,6 +27,12 @@ public class Kniha implements Serializable {
     private Long id;
 
     private String nazov;
+    @JoinTable(
+        name="KNIHAAUTOR",
+       joinColumns=@JoinColumn(name="kniha_id", referencedColumnName="ID"),
+       inverseJoinColumns=@JoinColumn(name="autor_id",
+       referencedColumnName="ID")
+    )
     private List<Osoba> autori;
 
     public String getNazov() {
