@@ -23,9 +23,9 @@ public class MainApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        create();                    
-        readKniha(201L);             
-        readFirma(101L);             
+        create();                    
+//        readKniha(201L);             
+//        readFirma(101L);             
     }
 
     public static void create() {
@@ -39,13 +39,13 @@ public class MainApp {
         Kniha k2 = new Kniha();
         k2.setNazov("Animal Farm");
 
-        k1.setVydavatel(f);
-        k2.setVydavatel(f);
-//         pre vytvorenie FK v db nie je nutne
-//        List<Kniha> kl = new ArrayList<>();
-//        kl.add(k1);
-//        kl.add(k2);
-//        f.setPublikacie(kl);
+//        k1.setVydavatel(f);
+//        k2.setVydavatel(f);
+        // pre vytvorenie FK v db nie je nutne
+        List<Kniha> kl = new ArrayList<>();
+        kl.add(k1);
+        kl.add(k2);
+        f.setPublikacie(kl);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
         EntityManager em = emf.createEntityManager();
