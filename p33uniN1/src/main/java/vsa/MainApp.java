@@ -10,6 +10,7 @@ import entities.Kniha;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -25,9 +26,11 @@ public class MainApp {
         f.setAdresa("Veda");
 
         Kniha k = new Kniha();
-        k.setNazov("1984");
-
+        k.setNazov("1984-opice");
+        Kniha k2 = new Kniha();
+        k2.setNazov("parizania");
         k.setVydavatel(f);
+        k2.setVydavatel(f);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
         EntityManager em = emf.createEntityManager();
@@ -35,6 +38,7 @@ public class MainApp {
         try {
 
             em.persist(k);
+            em.persist(k2);
             em.persist(f);
 
             em.getTransaction().commit();
@@ -44,7 +48,44 @@ public class MainApp {
         } finally {
             em.close();
         }
+        pridajKnihu("parizania", "Veda");
+        pridajKnihu("Nemci", "Veda");
+        pridajKnihu("parizania", "Olomouc");
+        pridajKnihu("Dogy", "Macky");
+    }
 
+    public static void pridajKnihu(String nazov, String adresa) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+
+        TypedQuery<Kniha> kq = em.createQuery("SELECT k FROM Kniha k WHERE k.nazov = :nazov", Kniha.class);
+        kq.setParameter("nazov", nazov);
+
+        TypedQuery<Firma> fq = em.createQuery("SELECT f FROM Firma f WHERE f.adresa = :adresa", Firma.class);
+        fq.setParameter("adresa", adresa);
+
+        if (fq.getResultList().isEmpty()) {
+            Firma novaFirma = new Firma();
+            novaFirma.setAdresa(adresa);
+            System.out.println("Vytvoril som vydavatelstvo");
+            em.persist(novaFirma);
+            if (!kq.getResultList().isEmpty()) {
+                kq.getSingleResult().setVydavatel(novaFirma);
+                em.persist(kq.getSingleResult());
+            }
+        }
+
+        TypedQuery<Firma> fq2 = em.createQuery("SELECT f FROM Firma f WHERE f.adresa = :adresa", Firma.class);
+        fq2.setParameter("adresa", adresa);
+
+        if (kq.getResultList().isEmpty()) {
+            Kniha novaKniha = new Kniha();
+            novaKniha.setNazov(nazov);
+            novaKniha.setVydavatel(fq2.getSingleResult());
+            em.persist(novaKniha);
+        }
+        em.getTransaction().commit();
     }
 
 }

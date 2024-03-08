@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vsa;
 
 import entities.Firma;
@@ -12,16 +7,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
-/**
- *
- * @author igor
- */
-public class MainApp {
-
-    /**
-     * @param args the command line arguments
-     */
+public class Main {
     public static void main(String[] args) {
         Firma f = new Firma();
         f.setAdresa("Veda");
@@ -52,7 +40,43 @@ public class MainApp {
         } finally {
             em.close();
         }
-
+        pridajKnihu("Animal Farm", "Jozin");
     }
-
+    public static void pridajKnihu(String nazov, String adresa) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        try {
+            TypedQuery<Kniha> q = em.createQuery("select k from Kniha k where k.nazov = :name", Kniha.class);
+            q.setParameter("name", nazov);
+            q2.setParameter("adr", adresa);
+            if (q2.getResultList().isEmpty()) {
+                System.out.println("Vytvoril som firmu!");
+                Firma f = new Firma();
+                f.setAdresa(adresa);
+                f.setPublikacie(new ArrayList<Kniha>());
+                if (!q.getResultList().isEmpty()) {
+                    for (Kniha kniha : q.getResultList()) {
+                        f.getPublikacie().add(kniha);
+                    }
+                }
+                em.persist(f);
+            }
+            if (q.getResultList().isEmpty()) {
+                System.out.println("Vytvoril som knihu!");
+                Kniha k = new Kniha();
+                k.setNazov(nazov);
+                for (Firma f : q2.getResultList()) {
+                    f.getPublikacie().add(k);
+                }
+                em.persist(k);
+            }
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.getTransaction().rollback();
+        } finally {
+            em.close();
+        }
+    }
 }
