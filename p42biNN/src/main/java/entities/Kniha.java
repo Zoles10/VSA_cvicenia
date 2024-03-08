@@ -28,7 +28,7 @@ public class Kniha implements Serializable {
 
     private String nazov;
 //    @ManyToMany(fetch = FetchType.EAGER) 
-    @ManyToMany 
+    @ManyToMany(mappedBy="dielo")
     private List<Osoba> autor;
 
     public String getNazov() {

@@ -27,7 +27,7 @@ public class Osoba implements Serializable {
     private Long id;    
     private String meno;
 //    @ManyToMany(mappedBy="autor", fetch = FetchType.EAGER)
-    @ManyToMany(mappedBy="autor")
+    @ManyToMany
     private List<Kniha> dielo;
 
     public List<Kniha> getDielo() {
