@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -22,6 +23,7 @@ public class NewMain {
      */
     public static void main(String[] args) {
         create();
+        jpqlDotaz();
     }
     static void create() {
         Kniha k = new Kniha();
@@ -48,5 +50,12 @@ public class NewMain {
             em.close();
         }
     }
-    
+
+    private static void jpqlDotaz() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<Kniha> q3 = em.createQuery("select k from Kniha k where k.autori='Ritchey'", Kniha.class);
+        System.out.println("CV1-2: najdena kniha podla autora : " + q3.getSingleResult());
+        em.close();
+    }
 }
