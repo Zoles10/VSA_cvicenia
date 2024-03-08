@@ -25,9 +25,9 @@ public class Kniha implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nazov;
-    
-//    @JoinColumn(name="VYDAVATEL_FK", nullable=false)
-//    @ManyToOne(optional=false)
+
+    @JoinColumn(name = "VYDAVATEL", nullable = false)
+    @ManyToOne(optional = false)
     private Firma vydavatel;
 
     public String getNazov() {
