@@ -22,7 +22,7 @@ public class NewMain {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        create();
+        create();
         read();
     }
 
@@ -34,24 +34,46 @@ public class NewMain {
         o2.setMeno("Ullman");
 
         Osoba o3 = new Osoba();
-        o3.setId(333L);
         o3.setMeno("Aho");
+        //vytvorime osoby
+        Osoba Huxley = new Osoba();
+        Huxley.setMeno("Huxley");
+        Osoba Orwell = new Osoba();
+        Orwell.setMeno("Orwell");
+        //vytvorim knihy
+        Kniha BraveNewWorld = new Kniha();
+        BraveNewWorld.setNazov("Uvod do teorie automatov");
+        Kniha Tisic = new Kniha();
+        Tisic.setNazov("1984");
+
+        //osobam priradime spravne
+        Huxley.setDielo(new ArrayList<>());
+        Huxley.getDielo().add(BraveNewWorld);
+        Orwell.setDielo(new ArrayList<>());
+        Orwell.getDielo().add(Tisic);
+
+        //kniham vymenime autorob
+        BraveNewWorld.setAutor(new ArrayList<>());
+        BraveNewWorld.getAutor().add(Orwell);
+        Tisic.setAutor(new ArrayList<>());
+        Tisic.getAutor().add(Huxley);
+
 
         Kniha k1 = new Kniha();
         k1.setNazov("Uvod do teorie automatov");
 
         Kniha k2 = new Kniha();
         k2.setNazov("Algoritmy a datove struktury");
-        
+
         k1.setAutor(new ArrayList<>());
         k1.getAutor().add(o1);
         k1.getAutor().add(o2);
-        
+
         k2.setAutor(new ArrayList<>());
         k2.getAutor().add(o1);
         k2.getAutor().add(o2);
         k2.getAutor().add(o3);
-        
+
         // pre DB nie je nutna 
         o1.setDielo(new ArrayList<>());
         o1.getDielo().add(k1);
@@ -74,6 +96,10 @@ public class NewMain {
             em.persist(o1);
             em.persist(o2);
             em.persist(o3);
+            em.persist(Huxley);
+            em.persist(Orwell);
+            em.persist(Tisic);
+            em.persist(BraveNewWorld);
 
             em.getTransaction().commit();
             em.clear();
@@ -94,7 +120,7 @@ public class NewMain {
 //        System.out.println(k.getNazov());
 //        System.out.println(k.getAutor().size());
     }
-    
+
     public static void createCv2() {
         Osoba o1 = new Osoba();
         o1.setMeno("Orwell");
@@ -110,7 +136,7 @@ public class NewMain {
 
         k1.setAutor(new ArrayList<>());
         k1.getAutor().add(o1);
-        
+
         k2.setAutor(new ArrayList<>());
         k2.getAutor().add(o2);
 
@@ -119,7 +145,7 @@ public class NewMain {
 
         o2.setDielo(new ArrayList<>());
         o2.getDielo().add(k1);
-        
+
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
         EntityManager em = emf.createEntityManager();
@@ -143,6 +169,6 @@ public class NewMain {
 
     }
 
-    
+
 
 }
