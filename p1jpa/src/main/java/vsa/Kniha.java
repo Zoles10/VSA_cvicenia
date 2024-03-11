@@ -7,6 +7,7 @@ package vsa;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  *
@@ -17,6 +18,21 @@ public class Kniha {
     @Id
     private String nazov;
     private double cena;
+    //V SQL pridanie ISBN stlpca ale nepridanie do classy
+    //ALTER TABLE kniha ADD ISBNe VARCHAR; 
+    //pridanie autora do classy ale nie do tabulky
+    
+    //@Transient nenamapuje na ziadny column
+    //pri pouziti drop-and-create sa vytvori rabulka aj s autorom
+    private String autor;
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
 
     public String getNazov() {
         return nazov;

@@ -21,7 +21,7 @@ public class NewMain {
       citajKnihy();
 //      zmenaCien();
 //      najdiKnihu();
-//      vytvorKnihu();
+      vytvorKnihu();
   
   }
 
