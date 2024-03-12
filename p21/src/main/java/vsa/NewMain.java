@@ -21,6 +21,7 @@ public class NewMain {
         Person p;
         p = new Person();
         p.setName("Fero");
+        p.setId(1231L);
         persist(p);
     }
 
