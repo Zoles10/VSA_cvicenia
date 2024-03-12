@@ -5,6 +5,7 @@
  */
 package vsa;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
@@ -15,13 +16,34 @@ import javax.persistence.Transient;
  */
 @Entity
 public class Kniha {
+
+    
+    
     @Id
+    private String ISBN;
+    
+    //unique urcuje, ze sa nemoze v DB nachadzat 2 rovnake
+    @Column(unique = true,nullable = false)
     private String nazov;
+
+    
+    //nullable zabrani tomu, aby mal nejaky column 
+    // null hodnotu, ale ak pouzijeme double, nie Double
+    //tak bude hodnota 0 a teda mie null
+    @Column(nullable = false)
     private double cena;
     //V SQL pridanie ISBN stlpca ale nepridanie do classy
     //ALTER TABLE kniha ADD ISBNe VARCHAR; 
     //pridanie autora do classy ale nie do tabulky
-    
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public void setISBN(String ISBN) {
+        this.ISBN = ISBN;
+    }
+
     //@Transient nenamapuje na ziadny column
     //pri pouziti drop-and-create sa vytvori rabulka aj s autorom
     private String autor;
@@ -55,5 +77,4 @@ public class Kniha {
         return "Kniha{" + "nazov=" + nazov + ", cena=" + cena + '}';
     }
 
-}    
-
+}

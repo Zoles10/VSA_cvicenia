@@ -84,6 +84,7 @@ public class NewMain {
      */
     public static void vytvorKnihu() {
         Kniha k = new Kniha();
+        k.setISBN("1234");
         k.setNazov("Pipi");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
         EntityManager em = emf.createEntityManager();
