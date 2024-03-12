@@ -17,7 +17,7 @@ import javax.persistence.Temporal;
 
 /**
  *
- * @author edu
+ * @author Zoles
  */
 @Entity
 public class Person implements Serializable {
@@ -29,8 +29,12 @@ public class Person implements Serializable {
     @Column(unique=true, nullable=false)
     private String name;
     private double salary;
+    //ak pouzijeme typ Date musime pouzit temporal 
+    //ak pouzijeme LocalDate alebo LocalDateTime tak nie
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date born;
+    private LocalDate born;
+    
+    //bez tohoto namapuje JPA na int, takto to bude original boolean
     @Column(columnDefinition="BOOLEAN")
     private boolean married;
 
@@ -50,11 +54,11 @@ public class Person implements Serializable {
         this.salary = salary;
     }
 
-    public Date getBorn() {
+    public LocalDate getBorn() {
         return born;
     }
 
-    public void setBorn(Date born) {
+    public void setBorn(LocalDate born) {
         this.born = born;
     }
 

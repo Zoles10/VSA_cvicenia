@@ -6,6 +6,7 @@
 package vsa;
 
 import entities.Person;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.EntityManager;
@@ -22,14 +23,18 @@ public class NewMain {
         Person p;
         p = new Person();
         p.setName("Fero");
-        p.setBorn(new Date());
+//        p.setBorn(new Date());
+        p.setBorn(LocalDate.now());
+
         p.setMarried(false);
         p.setSalary(800.0);
         persist(p);
 
         p = new Person();
         p.setName("Eva");
-        p.setBorn(toDate(1997, 3, 10));
+//        p.setBorn(toDate(1997, 3, 10));
+        p.setBorn(LocalDate.of(1997, 3, 10));
+
         p.setMarried(true);
         p.setSalary(1200.0);
         persist(p);
