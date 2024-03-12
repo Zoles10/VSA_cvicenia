@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 
 /**
@@ -20,6 +22,15 @@ import javax.persistence.Temporal;
  * @author Zoles
  */
 @Entity
+
+//named queries ktore sa daju pouzit namiesto klasickych
+@NamedQueries({
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p"),
+    @NamedQuery(name = "Person.findById", query = "SELECT p FROM Person p WHERE p.id = :id"),
+    @NamedQuery(name = "Person.findByBorn", query = "SELECT p FROM Person p WHERE p.born = :born"),
+    @NamedQuery(name = "Person.findByMarried", query = "SELECT p FROM Person p WHERE p.married = :married"),
+    @NamedQuery(name = "Person.findByName", query = "SELECT p FROM Person p WHERE p.name = :name"),
+    @NamedQuery(name = "Person.findBySalary", query = "SELECT p FROM Person p WHERE p.salary = :salary")})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +42,7 @@ public class Person implements Serializable {
     private double salary;
     //ak pouzijeme typ Date musime pouzit temporal 
     //ak pouzijeme LocalDate alebo LocalDateTime tak nie
-    @Temporal(javax.persistence.TemporalType.DATE)
+//    @Temporal(javax.persistence.TemporalType.DATE)
     private LocalDate born;
     
     //bez tohoto namapuje JPA na int, takto to bude original boolean
