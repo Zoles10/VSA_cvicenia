@@ -78,5 +78,5 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
-    <name>zapocet_napoj_zoles</name>
+    <name>zapocetNapojUT</name>
 </project>

@@ -46,12 +46,16 @@ public class Application {
         novyDrink.setName(nazov);
         novyDrink.setPrice(cena);
         em.getTransaction().begin();
+
+        if (!em.createQuery("SELECT n FROM Napoj n WHERE n.name = :nazov", Napoj.class).setParameter("nazov", nazov).getResultList().isEmpty()) {
+            return null;
+        }
+
         try {
             em.persist(novyDrink);
             em.getTransaction().commit();
         } catch (Exception e) {
             System.out.println("Existuje meno");
-            return null;
         } finally {
         }
         return novyDrink.getId();
@@ -59,7 +63,7 @@ public class Application {
     }
     //Metóda vráti zoznam všetkých nápojov, ktoré nemajú zadaný názov.
     //Na vyhľadanie týchto nápojov v databáze použite JPQL dotaz.
-    
+
     public static List<Napoj> napojeBezNazvu() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("vsaPU");
         EntityManager em = emf.createEntityManager();

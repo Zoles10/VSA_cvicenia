@@ -15,50 +15,51 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Zoles
+ * @author edu
  */
 @Entity
-@Table(name = "drink")
+@Table(name="DRINK")
 public class Napoj implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
-    @Column(unique = true,nullable = true)
-    private String name;
+    private Long ID;
+    @Column(unique = true, nullable = true)
+    private String NAME;
     @Column(nullable = true)
-    private Double price;
+    private Double PRICE;
 
-    public String getName() {
-        return name;
+    public Long getID() {
+        return ID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setID(Long ID) {
+        this.ID = ID;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getNAME() {
+        return NAME;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setNAME(String NAME) {
+        this.NAME = NAME;
     }
 
-    public Long getId() {
-        return id;
+    public Double getPRICE() {
+        return PRICE;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPRICE(Double PRICE) {
+        this.PRICE = PRICE;
     }
+
+    
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (ID != null ? ID.hashCode() : 0);
         return hash;
     }
 
@@ -69,7 +70,7 @@ public class Napoj implements Serializable {
             return false;
         }
         Napoj other = (Napoj) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.ID == null && other.ID != null) || (this.ID != null && !this.ID.equals(other.ID))) {
             return false;
         }
         return true;
@@ -77,7 +78,7 @@ public class Napoj implements Serializable {
 
     @Override
     public String toString() {
-        return "dbapp.Napoj[ id=" + id + " ]";
+        return "dbapp.Napoj[ id=" + ID + " ]";
     }
-
+    
 }
